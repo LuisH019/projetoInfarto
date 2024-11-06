@@ -1,74 +1,90 @@
-import streamlit as st
 import pandas as pd
-import plotly.express as px
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import datetime as dt
+import numpy as np
+import matplotlib.pyplot as plt
 
-df = pd.read_csv('bhd.csv')
+# Carregar o dataset fornecido
+df = pd.read_csv('heart_2020_cleaned copy.csv')
 
-df['Date'] = pd.to_datetime(df['Date'], format='%m/%d/%Y')
+# Converter o DataFrame para um array NumPy de floats
+dfNumpy = df.astype(float).to_numpy()[:200000].T[:12]
 
-df['Change %'] = df['Change %'].str.replace('%', '').astype(float)
+# Parâmetros iniciais
+rows, cols = dfNumpy.shape
 
-df['Price'] = df['Price'].str.replace(',', '').astype(float)
+numEpocas = 100  # Aumentado para observar a convergência ao longo de mais iterações
+eta = 0.05       # Diminuído para um ajuste mais controlado dos pesos
+m = rows - 1
+N = 30           # Aumentado o número de neurônios na camada escondida para captar mais características
+L = 1
 
-def convert_volume(vol):
-    if 'K' in vol:
-        return float(vol.replace('K', '')) * 1000
-    elif 'M' in vol:
-        return float(vol.replace('M', '')) * 1000000
-    elif 'B' in vol:
-        return float(vol.replace('B', '')) * 1000000000
-    return float(vol)
+# Vetor de classificação desejada
+d = dfNumpy[0]
 
-df['Vol.'] = df['Vol.'].apply(convert_volume)
+# Inicia aleatoriamente as matrizes de pesos
+W1 = np.random.random((N, m + 1))
+W2 = np.random.random((L, N + 1))
 
-df = df.sort_values('Date').reset_index(drop=True)
+# Array para armazenar os erros
+E = np.zeros(cols)
+Etm = np.zeros(numEpocas)
 
-dfFiltered = df[df['Date'] > '2024-01-01']
+# Bias
+bias = 1
 
-line_chart = px.line(df, x='Date', y='Price', labels={'Price': 'Preço (USD)', 'Date': 'Data'},
-              title="Preço do Bitcoin ao longo do tempo")
-st.plotly_chart(line_chart)
+# Entrada do Perceptron
+X = dfNumpy[1:]
 
+# Função de ativação sigmoide
+sigmoid = lambda x: 1 / (1 + np.exp(-x))
 
-# Seleção de Recursos e Alvo
-X = df[['Date']].astype('int64') / 1e9
-y = df['Price']
+# Treinamento
+for i in range(numEpocas):
+    for j in range(cols):
+        # Adicionar o bias ao vetor de entrada
+        Xb = np.hstack((bias, X[:, j]))
 
-# Divisão em Conjuntos de Treino e Teste
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        # Saída da Camada Escondida usando sigmoide
+        o1 = sigmoid(W1.dot(Xb))
 
-# Criação e Treinamento do Modelo
-model = LinearRegression()
-model.fit(X_train, y_train)
+        # Incluindo o bias
+        o1b = np.insert(o1, 0, bias)
 
-# Previsão
-y_pred = model.predict(X_test)
+        # Saída da rede neural usando sigmoide
+        Y = sigmoid(W2.dot(o1b))
 
-# Avaliação do Modelo
-mae = mean_absolute_error(y_test, y_pred)
-mse = mean_squared_error(y_test, y_pred)
-rmse = mean_squared_error(y_test, y_pred, squared=False)
-r2 = r2_score(y_test, y_pred)
+        # Erro
+        e = d[j] - Y
 
+        # Erro Total
+        E[j] = (e.transpose().dot(e)) / 2
 
-st.write(f"Mean Absolute Error (MAE): {mae}")
-st.write(f"Mean Squared Error (MSE): {mse}")
-st.write(f"Root Mean Squared Error (RMSE): {rmse}")
-st.write(f"R²: {r2}")
+        # Retropropagação do erro
+        delta2 = np.diag(e).dot(Y * (1 - Y))
+        vdelta2 = W2.T.dot(delta2)
+        delta1 = np.diag(o1b * (1 - o1b)).dot(vdelta2)
 
-results = pd.DataFrame({
-    'Date': pd.to_datetime(X_test['Date'], unit='s').values,
-    'Real Price': y_test.values,
-    'Predicted Price': y_pred
-})
+        # Atualização dos pesos
+        W1 += eta * np.outer(delta1[1:], Xb)
+        W2 += eta * np.outer(delta2, o1b)
 
-results = results.sort_values('Date').reset_index(drop=True)
+    # Calculo da média dos erros
+    Etm[i] = E.mean()
 
-line_chart = px.line(results, x='Date', y=['Real Price', 'Predicted Price'], 
-              labels={'value': 'Preço (USD)', 'Date': 'Data'},
-              title="Preço real vs Previsão do Bitcoin")
-st.plotly_chart(line_chart)
+# Plotar o Erro Médio por época
+plt.xlabel("Épocas")
+plt.ylabel("Erro Médio")
+plt.plot(Etm, color='c')
+plt.plot(Etm)
+plt.show()
+
+# Teste da rede neural
+Error_Test = np.zeros(cols)
+
+for i in range(cols):
+    Xb = np.hstack((bias, X[:, i]))
+    o1 = sigmoid(W1.dot(Xb))
+    o1b = np.insert(o1, 0, bias)
+    Y = sigmoid(W2.dot(o1b))
+    Error_Test[i] = d[i] - Y
+
+Error_Test, np.round(Error_Test) - d  # Exibe erros e a precisão final em relação ao vetor d

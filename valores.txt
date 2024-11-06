@@ -1,0 +1,41 @@
+Yes = 1
+No = -1
+
+White = 1
+Black = 2
+Asian = 3
+American Indian/Alaskan Native = 4
+Other = 6
+Hispanic 5
+
+Very good = 2
+Fair =  4
+Good = 3
+Poor = 5 
+Excellent = 1
+
+No, borderline diabetes = -2
+Yes (during pregnancy) = 2
+
+Male = 1
+Female = 2
+
+55-59 = 8
+80 or older = 13
+65-69 = 10
+75-79 = 12
+40-44 = 5
+70-74 = 11 
+60-64 = 9
+50-54 = 7
+45-49 = 6
+18-24 = 1
+35-39 = 4
+30-34 = 3
+25-29 2
+
+
+
+
+
+
