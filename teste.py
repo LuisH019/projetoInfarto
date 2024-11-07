@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('heart_2020_cleaned copy.csv')
 
 # Converter o DataFrame para um array NumPy de floats
-dfNumpy = df.astype(float).to_numpy()[:200000].T[:12]
+dfNumpy = df.astype(float).to_numpy()[:200000].T
 
 # Parâmetros iniciais
 rows, cols = dfNumpy.shape
@@ -85,6 +85,8 @@ for i in range(cols):
     o1 = sigmoid(W1.dot(Xb))
     o1b = np.insert(o1, 0, bias)
     Y = sigmoid(W2.dot(o1b))
+    print(Y)
     Error_Test[i] = d[i] - Y
 
-Error_Test, np.round(Error_Test) - d  # Exibe erros e a precisão final em relação ao vetor d
+print(Error_Test)
+print(np.round(Error_Test) - d) # Exibe erros e a precisão final em relação ao vetor d
