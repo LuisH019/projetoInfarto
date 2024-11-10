@@ -1,1 +1,1 @@
-# IA de Previsão de Infarto
+IA de Previsão de Infarto
