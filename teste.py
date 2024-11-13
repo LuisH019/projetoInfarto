@@ -57,7 +57,7 @@ for i in range(numEpocas):
         e = d[j] - Y
 
         # Erro Total
-        E[j] = (e ** 2) / 2
+        E[j] = (e.item() ** 2) / 2
 
         # Retropropagação do erro
         delta2 = e * Y * (1 - Y)  # Derivada da sigmoide
