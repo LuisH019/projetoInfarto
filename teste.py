@@ -90,14 +90,14 @@ for i in range(cols):
 print(Error_Test)
 print(np.round(Error_Test) - d)  # Exibe erros e a precisão final em relação ao vetor d
 
-# Teste com novo dado
-X_novo = np.array([27.1, 1.0, -1.0, -1.0, 0.0, 0.0, 1.0, 10.0, 1.0, 1.0, 9.0, -1.0, -1.0, -1.0])  # Exemplo de entrada com 14 variáveis
+# # Teste com novo dado
+# X_novo = np.array([27.1, 1.0, -1.0, -1.0, 0.0, 0.0, 1.0, 10.0, 1.0, 1.0, 9.0, -1.0, -1.0, -1.0])  # Exemplo de entrada com 14 variáveis
 
-# Adiciona o viés a X_novo
-X_novo = np.append(X_novo, 1.0)  # Agora X_novo tem 15 elementos (14 variáveis + 1 viés)
+# # Adiciona o viés a X_novo
+# X_novo = np.append(X_novo, 1.0)  # Agora X_novo tem 15 elementos (14 variáveis + 1 viés)
 
-# Realiza a predição com o modelo treinado
-Y_pred = predict(X_novo, W1, W2)
+# # Realiza a predição com o modelo treinado
+# Y_pred = predict(X_novo, W1, W2)
 
-print("Probabilidade de doença cardíaca:", Y_pred)
-print("Predição:", "Doença cardíaca" if Y_pred >= 0.5 else "Sem doença cardíaca")
+# print("Probabilidade de doença cardíaca:", Y_pred)
+# print("Predição:", "Doença cardíaca" if Y_pred >= 0.5 else "Sem doença cardíaca")
