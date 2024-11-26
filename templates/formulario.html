@@ -13,13 +13,13 @@
         
         <form action="/" method="POST" class="row g-3">
             <div class="col-md-6">
-                <label for="BMI" class="form-label">BMI
+                <label for="BMI" class="form-label">IMC
                     <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Índice de Massa Corporal:<br>- Menos de 18,5 - abaixo do peso<br>- 18,5 a 24,9 - peso saudavel
                     <br>- 25 a 29,9 - sobrepeso<br> 30 a 39,9 - obeso<br> - + de 40 - muito obeso">
                         <i class="bi bi-question-circle"></i>
                     </span>
                 </label> 
-                <input type="number" step="0.1" class="form-control" name="BMI" required>
+                <input type="number" step="0.1" class="form-control" name="BMI" min="1" max="100" required>
             </div>
 
             <div class="col-md-6">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-6">
-                <label for="Stroke" class="form-label">Derrame</label>
+                <label for="Stroke" class="form-label">Ocorrência de derrame</label>
                 <select class="form-select" name="Stroke" required>
                     <option value="1">Sim</option>
                     <option value="-1">Não</option>
@@ -48,11 +48,11 @@
 
             <div class="col-md-6">
                 <label for="PhysicalHealth" class="form-label">Saúde Física
-                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Nível de Saúde Física<br>- Boa - 0 a 5<br>- Média - 6 a 15 dias<br>- Ruim - 16 a 30">
+                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Nível de Saúde Física<br>- Boa - 0 a 5<br>- Média - 6 a 15 <br>- Ruim - 16 a 30">
                         <i class="bi bi-question-circle"></i>
                     </span>
                 </label>
-                <input type="number" class="form-control" name="PhysicalHealth" required>
+                <input type="number" class="form-control" name="PhysicalHealth" min="0" max="30" required>
             </div>
 
             <div class="col-md-6">
@@ -61,7 +61,7 @@
                         <i class="bi bi-question-circle"></i>
                     </span>
                 </label>
-                <input type="number" class="form-control" name="MentalHealth" required>
+                <input type="number" class="form-control" name="MentalHealth" min="0" max="30" required>
             </div>
 
             <div class="col-md-6">
@@ -74,7 +74,22 @@
 
             <div class="col-md-6">
                 <label for="AgeCategory" class="form-label">Idade</label>
-                <input type="number" class="form-control" name="AgeCategory" required>
+                <select class="form-select" name="AgeCategory" required>
+                    <option value="0">17 ou menos</option>
+                    <option value="1">18-24</option>
+                    <option value="2">25-29</option>
+                    <option value="3">30-34</option>
+                    <option value="4">35-39</option>
+                    <option value="5">40-44</option>
+                    <option value="6">45-49</option>
+                    <option value="7">50-54</option>
+                    <option value="8">55-59</option>
+                    <option value="9">60-64</option>
+                    <option value="10">65-69</option>
+                    <option value="11">70-74</option>
+                    <option value="12">75-79</option>
+                    <option value="13">80 ou mais</option>
+                </select>
             </div>
 
             <div class="col-md-6">
@@ -100,7 +115,7 @@
                         <i class="bi bi-question-circle"></i>
                     </span>
                 </label>
-                <input type="number" class="form-control" name="SleepTime" required>
+                <input type="number" class="form-control" name="SleepTime" min="0" max="12" required>
             </div>
 
             <div class="col-md-6">
@@ -135,7 +150,7 @@
         {% if probabilidade is not none and predicao is not none %}
             <div class="mt-5 alert alert-info text-center">
                 <h2>Resultado:</h2>
-                <p><strong>Probabilidade de Doença Cardíaca:</strong> {{ "{:.4f}".format(probabilidade[0]) }}</p>
+                <p><strong>Probabilidade de Doença Cardíaca:</strong> {{ probabilidade }} %</p>
                 <p><strong>Predição:</strong> {{ predicao }}</p>
             </div>
         {% endif %}

@@ -1,42 +1,23 @@
+import joblib
 import numpy as np
-import pandas as pd
-from random import randint
-import os
 
-def load_weights():
-    W1 = np.load('w1.npy')
-    W2 = np.load('w2.npy')
-    return W1, W2
+def predict(input_data):
+    model_lgbm = joblib.load('model_lgbm.pkl')
+    scaler = joblib.load('scaler.pkl')
 
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))  
+    input_data_scaled = scaler.transform(input_data)
 
-def predict(X_new, W1, W2, bias=1):
-    Xb = np.append(X_new, bias)  
-    
-    o1 = sigmoid(W1.dot(Xb))  
+    prediction = model_lgbm.predict(input_data_scaled)
+    if prediction == 1:
+        pred_answer = "Doença cardíaca"
+    else:
+        pred_answer = "Sem doença cardíaca"
 
-    o1b = np.append(o1, 1.0)  
+    probabilities = model_lgbm.predict_proba(input_data_scaled)
+    if prediction == 1:
+        probability = np.max(probabilities)
+    else:
+        probability = np.min(probabilities)
 
-    Y_pred = sigmoid(W2.dot(o1b))  
+    return pred_answer, round(probability * 100, 2)
 
-    return Y_pred
-
-df = pd.read_csv('heart_2020_cleaned_copy.csv')
-df = df.drop(['Race','DiffWalking', 'GenHealth'], axis=1)
-
-dfNumpy = df.astype(float).to_numpy()
-
-W1, W2 = load_weights()
-
-# i = randint(250000, 300000)
-
-X_novo = dfNumpy[319680]
-X_novo = X_novo[1:]
-
-Y_pred = predict(X_novo, W1, W2)
-
-os.system('cls')
-# print(i)
-print("Probabilidade de doença cardíaca:", Y_pred)
-print("Predição:", "Doença cardíaca" if Y_pred >= 0.5 else "Sem doença cardíaca")
