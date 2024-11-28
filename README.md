@@ -13,7 +13,7 @@ git clone https://github.com/LuisH019/projetoInfarto.git
 3. Certifique-se de ter a extensão adequada de Python no VS Code, como o "Pandas".
 4. Navegue até a classe principal do projeto e execute-a diretamente no VS Code.
 
-### Principais dados utilizados 
+## Principais dados utilizados 
 - IMC (BMI)
 - Fumante (Smoking)
 - Consumo de Alcool (AlcoholDrinking)
