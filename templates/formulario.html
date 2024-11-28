@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
+    {% include 'navbar.html' %}
+    
     <div class="container mt-5">
         <h1 class="text-center mb-4">Predição de Doença Cardíaca</h1>
         
@@ -15,7 +17,7 @@
             <div class="col-md-6">
                 <label for="BMI" class="form-label">IMC
                     <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Índice de Massa Corporal:<br>- Menos de 18,5 - abaixo do peso<br>- 18,5 a 24,9 - peso saudavel
-                    <br>- 25 a 29,9 - sobrepeso<br> 30 a 39,9 - obeso<br> - + de 40 - muito obeso">
+                    <br>- 25 a 29,9 - sobrepeso<br>a 30 a 39,9 - obeso<br> - + de 40 - muito obeso">
                         <i class="bi bi-question-circle"></i>
                     </span>
                 </label> 

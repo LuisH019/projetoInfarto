@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
-import numpy as np
 from predict import predict
 import pandas as pd
+from graphics import listGraphics
 
 app = Flask(__name__)
 
@@ -35,6 +35,10 @@ def formulario():
         return render_template("formulario.html", probabilidade=probabilidade, predicao=predicao)
 
     return render_template("formulario.html", probabilidade=probabilidade, predicao=predicao)
+
+@app.route("/graphics")
+def graphics():
+    return render_template("graphics.html", listGraphics=listGraphics())
 
 if __name__ == "__main__":
     app.run(debug=True)
