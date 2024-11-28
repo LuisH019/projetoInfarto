@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import joblib
 
-from utils.graphics import readCsv
+from utils.readCsv import readCsv
 
 def train():
     df = readCsv()
