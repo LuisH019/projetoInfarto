@@ -14,20 +14,20 @@ git clone https://github.com/LuisH019/projetoInfarto.git
 4. Navegue até a classe principal do projeto e execute-a diretamente no VS Code.
 
 ## Principais dados utilizados 
-- IMC (BMI)
-- Fumante (Smoking)
-- Consumo de Alcool (AlcoholDrinking)
-- Derrame (Stroke)
-- Saúde Física (PhysicalHealth)
-- Saúde Mental (MentalHealth)
-- PhysicalActivity (Atividade Física)
-- Idade (AgeCategory)
-- Sexo (Sex)
-- Diabetes (Diabetic)
-- Horas de Sono (SleepTime)
-- Asma (Asthma)
-- Doença Renal (KidneyDisease)
-- Câncer de Pele (SkinCancer)
+- IMC (BMI): É uma medida que usa a altura e o peso para verificar se uma pessoa está em um peso saudável.
+- Fumante (Smoking): Indica se a pessoa é fumante ou não.
+- Consumo de Alcool (AlcoholDrinking): Refere-se aos hábitos de consumo de bebidas alcoólicas.
+- Derrame (Stroke): Indica se a pessoa já sofreu um acidente vascular cerebral (AVC).
+- Saúde Física (PhysicalHealth): Avalia o estado geral da saúde física.
+- Saúde Mental (MentalHealth): Refere-se ao bem-estar psicológico e emocional da pessoa.
+- PhysicalActivity (Atividade Física): Indica o nível de exercícios ou atividades físicas regulares que a pessoa realiza.
+- Idade (AgeCategory): Representa a faixa etária da pessoa.
+- Sexo (Sex): Refere-se ao sexo biológico da pessoa.
+- Diabetes (Diabetic): Indica se a pessoa tem diabetes.
+- Horas de Sono (SleepTime): Representa a quantidade média de horas de sono por noite.
+- Asma (Asthma): Indica se a pessoa tem asma.
+- Doença Renal (KidneyDisease): Refere-se à presença de problemas nos rins.
+- Câncer de Pele (SkinCancer): Indica se a pessoa teve ou tem câncer de pele.
 
 ## Estrutura do Projeto
 - app.py: Arquivo principal que contém o código do aplicativo. Este script inicializa a aplicação e gerencia a lógica central.
