@@ -1,3 +1,7 @@
+import sys 
+import os 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import lightgbm as lgb
 from imblearn.combine import SMOTEENN
 from sklearn.model_selection import train_test_split
@@ -5,9 +9,10 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import joblib
 
+from utils.graphics import readCsv
+
 def train():
-    df = pd.read_csv('heart_2020_cleaned.csv')
-    df = df.drop(['Race', 'DiffWalking', 'GenHealth'], axis=1)
+    df = readCsv()
     df['HeartDisease'] = df['HeartDisease'].replace(-1, 0)
 
     X = df.drop(columns=['HeartDisease'])
@@ -33,10 +38,11 @@ def train():
 
     model_lgbm.fit(X_train, y_train)
 
-    joblib.dump(model_lgbm, 'model_lgbm.pkl')
-    joblib.dump(scaler, 'scaler.pkl')
+    joblib.dump(model_lgbm, 'models/model_lgbm.pkl')
+    joblib.dump(scaler, 'models/scaler.pkl')
 
     print("Modelo treinado e salvo com sucesso.")
 
 train()
+
 

@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
-from predict import predict
 import pandas as pd
-from graphics import listGraphics
+
+from utils.graphics import listGraphics
+from utils.predict import predict
 
 app = Flask(__name__)
 

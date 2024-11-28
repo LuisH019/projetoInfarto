@@ -2,8 +2,8 @@ import joblib
 import numpy as np
 
 def predict(input_data):
-    model_lgbm = joblib.load('model_lgbm.pkl')
-    scaler = joblib.load('scaler.pkl')
+    model_lgbm = joblib.load('models/model_lgbm.pkl')
+    scaler = joblib.load('models/scaler.pkl')
 
     input_data_scaled = scaler.transform(input_data)
 

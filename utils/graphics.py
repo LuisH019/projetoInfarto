@@ -1,11 +1,14 @@
+import sys 
+import os 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
-df = pd.read_csv('heart_2020_cleaned.csv')
-df = df.drop(['Race', 'DiffWalking', 'GenHealth'], axis=1)
+from utils.readCsv import readCsv
 
+df = readCsv()
 dir = 'static/images/'
 
 def generateGraphics():
