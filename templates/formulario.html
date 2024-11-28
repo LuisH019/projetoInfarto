@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predição de Doença Cardíaca</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Predição de Doença Cardíaca</h1>
+        
+        <form action="/" method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label for="BMI" class="form-label">IMC
+                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Índice de Massa Corporal:<br>- Menos de 18,5 - abaixo do peso<br>- 18,5 a 24,9 - peso saudavel
+                    <br>- 25 a 29,9 - sobrepeso<br>a 30 a 39,9 - obeso<br> - + de 40 - muito obeso">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                </label> 
+                <input type="number" step="0.1" class="form-control" name="BMI" min="1" max="100" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Smoking" class="form-label">Fumante</label>
+                <select class="form-select" name="Smoking" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="AlcoholDrinking" class="form-label">Consumo de Álcool</label>
+                <select class="form-select" name="AlcoholDrinking" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Stroke" class="form-label">Ocorrência de derrame</label>
+                <select class="form-select" name="Stroke" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="PhysicalHealth" class="form-label">Saúde Física
+                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Nível de Saúde Física<br>- Boa - 0 a 5<br>- Média - 6 a 15 <br>- Ruim - 16 a 30">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                </label>
+                <input type="number" class="form-control" name="PhysicalHealth" min="0" max="30" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="MentalHealth" class="form-label">Saúde Mental
+                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Nível de Saúde Mental<br>- Boa - 0 a 5<br>- Média - 6 a 15 dias<br>- Ruim - 16 a 30">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                </label>
+                <input type="number" class="form-control" name="MentalHealth" min="0" max="30" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="PhysicalActivity" class="form-label">Atividade Física</label>
+                <select class="form-select" name="PhysicalActivity" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="AgeCategory" class="form-label">Idade</label>
+                <select class="form-select" name="AgeCategory" required>
+                    <option value="0">17 ou menos</option>
+                    <option value="1">18-24</option>
+                    <option value="2">25-29</option>
+                    <option value="3">30-34</option>
+                    <option value="4">35-39</option>
+                    <option value="5">40-44</option>
+                    <option value="6">45-49</option>
+                    <option value="7">50-54</option>
+                    <option value="8">55-59</option>
+                    <option value="9">60-64</option>
+                    <option value="10">65-69</option>
+                    <option value="11">70-74</option>
+                    <option value="12">75-79</option>
+                    <option value="13">80 ou mais</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Sex" class="form-label">Sexo</label>
+                <select class="form-select" name="Sex" required>
+                    <option value="1">Homem</option>
+                    <option value="2">Mulher</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Diabetic" class="form-label">Diabetes</label>
+                <select class="form-select" name="Diabetic" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="SleepTime" class="form-label">Horas de Sono
+                    <span class="ms-2" data-bs-toggle="tooltip" data-bs-html="true" title="Quantidade de Horas de Sono<br>- Ruim - Menos de 6 horas<br>- Medio - Entre 6 e 7 horas<br>
+                    - Bom - Entre 8 a 9 Horas">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                </label>
+                <input type="number" class="form-control" name="SleepTime" min="0" max="12" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Asthma" class="form-label">Asma</label>
+                <select class="form-select" name="Asthma" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="KidneyDisease" class="form-label">Doença Renal</label>
+                <select class="form-select" name="KidneyDisease" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="SkinCancer" class="form-label">Câncer de Pele</label>
+                <select class="form-select" name="SkinCancer" required>
+                    <option value="1">Sim</option>
+                    <option value="-1">Não</option>
+                </select>
+            </div>
+
+            <div class="col-12 text-center mt-4">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+
+        {% if probabilidade is not none and predicao is not none %}
+            <div class="mt-5 alert alert-info text-center">
+                <h2>Resultado:</h2>
+                <p><strong>Probabilidade de Doença Cardíaca:</strong> {{ probabilidade }} %</p>
+                <p><strong>Predição:</strong> {{ predicao }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+    
+</body>
+</html>

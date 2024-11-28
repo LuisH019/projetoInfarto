@@ -1,13 +1,6 @@
 Yes = 1
 No = -1
 
-White = 1
-Black = 2
-Asian = 3
-American Indian/Alaskan Native = 4
-Other = 6
-Hispanic 5
-
 Very good = 2
 Fair =  4
 Good = 3
